@@ -9,7 +9,7 @@ class UserController {
       email: Yup.string()
         .email()
         .required(),
-      password_hash: Yup.string()
+      password: Yup.string()
         .required()
         .min(6),
     });
