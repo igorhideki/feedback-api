@@ -15,5 +15,6 @@ routes.post('/session', SessionController.store);
 routes.use(authMiddleware);
 
 routes.post('/reviews', ReviewController.store);
+routes.get('/reviews', ReviewController.index);
 
 export default routes;
