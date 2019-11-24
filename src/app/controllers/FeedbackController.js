@@ -150,6 +150,25 @@ class FeedbackController {
 
     return res.json(feedback);
   }
+
+  async delete(req, res) {
+    const currentUser = await User.findByPk(req.userId);
+    const isAdmin = currentUser.admin;
+
+    if (!isAdmin) {
+      return res.status(401).json({ error: 'User is not admin' });
+    }
+
+    const feedback = await Feedback.findByPk(req.params.id);
+
+    if (!feedback) {
+      return res.status(401).json({ error: 'Feedback not found' });
+    }
+
+    await feedback.destroy();
+
+    return res.json();
+  }
 }
 
 export default new FeedbackController();
