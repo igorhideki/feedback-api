@@ -3,6 +3,29 @@ import * as Yup from 'yup';
 import User from '../models/User';
 
 class UserController {
+  async index(req, res) {
+    const currentUser = await User.findByPk(req.userId);
+    const isAdmin = currentUser.admin;
+
+    if (!isAdmin) {
+      return res.status(401).json({ error: 'User is not admin' });
+    }
+
+    const { page = 1 } = req.query;
+    const auxOffset = page > 1 ? 1 : 0;
+    const limit = 10;
+
+    const users = await User.findAll({
+      where: {},
+      offset: (page - 1) * limit + auxOffset,
+      limit,
+      subQuery: false,
+      attributes: ['id', 'name', 'email', 'admin'],
+    });
+
+    return res.json(users);
+  }
+
   async store(req, res) {
     const scheme = Yup.object().shape({
       name: Yup.string().required(),
