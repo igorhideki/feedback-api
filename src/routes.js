@@ -19,5 +19,6 @@ routes.post('/reviews', ReviewController.store);
 routes.get('/reviews', ReviewController.index);
 
 routes.post('/reviews/:reviewId/feedbacks', FeedbackController.store);
+routes.get('/feedbacks', FeedbackController.index);
 
 export default routes;
