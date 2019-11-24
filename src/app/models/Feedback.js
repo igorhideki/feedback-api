@@ -20,7 +20,7 @@ class Feedback extends Model {
   }
 
   static associate(models) {
-    this.belongsTo(models.User, { foreignKey: 'review_id', as: 'review' });
+    this.belongsTo(models.Review, { foreignKey: 'review_id', as: 'review' });
   }
 }
 
