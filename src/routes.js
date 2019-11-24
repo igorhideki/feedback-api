@@ -16,6 +16,7 @@ routes.post('/session', SessionController.store);
 routes.use(authMiddleware);
 
 routes.put('/users/:id', UserController.update);
+routes.delete('/users/:id', UserController.delete);
 
 routes.post('/reviews', ReviewController.store);
 routes.get('/reviews', ReviewController.index);

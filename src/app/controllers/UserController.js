@@ -79,6 +79,25 @@ class UserController {
       email: email || user.email,
     });
   }
+
+  async delete(req, res) {
+    const currentUser = await User.findByPk(req.userId);
+    const isAdmin = currentUser.admin;
+
+    if (!isAdmin) {
+      return res.status(401).json({ error: 'User is not admin' });
+    }
+
+    const user = await User.findByPk(req.params.id);
+
+    if (!user) {
+      return res.status(401).json({ error: 'User not found' });
+    }
+
+    await user.destroy();
+
+    return res.json();
+  }
 }
 
 export default new UserController();
