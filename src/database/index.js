@@ -3,8 +3,9 @@ import databaseConfig from '../config/database';
 
 import User from '../app/models/User';
 import Review from '../app/models/Review';
+import Feedback from '../app/models/Feedback';
 
-const models = [User, Review];
+const models = [User, Review, Feedback];
 
 class Database {
   constructor() {
