@@ -76,23 +76,23 @@ class FeedbackController {
     const scheme = Yup.object().shape({
       productivity: Yup.number()
         .required()
-        .min(0)
+        .min(1)
         .max(5),
       organization: Yup.number()
         .required()
-        .min(0)
+        .min(1)
         .max(5),
       flexibility: Yup.number()
         .required()
-        .min(0)
+        .min(1)
         .max(5),
       team_work: Yup.number()
         .required()
-        .min(0)
+        .min(1)
         .max(5),
       leadership: Yup.number()
         .required()
-        .min(0)
+        .min(1)
         .max(5),
       observation: Yup.string(),
     });
@@ -105,6 +105,48 @@ class FeedbackController {
       review_id: review.id,
       ...req.body,
     });
+
+    return res.json(feedback);
+  }
+
+  async update(req, res) {
+    const currentUser = await User.findByPk(req.userId);
+    const isAdmin = currentUser.admin;
+
+    if (!isAdmin) {
+      return res.status(401).json({ error: 'User is not admin' });
+    }
+
+    const feedback = await Feedback.findByPk(req.params.id);
+
+    if (!feedback) {
+      return res.status(400).json({ error: 'Feedback not found' });
+    }
+
+    const scheme = Yup.object().shape({
+      productivity: Yup.number()
+        .min(1)
+        .max(5),
+      organization: Yup.number()
+        .min(1)
+        .max(5),
+      flexibility: Yup.number()
+        .min(1)
+        .max(5),
+      team_work: Yup.number()
+        .min(1)
+        .max(5),
+      leadership: Yup.number()
+        .min(1)
+        .max(5),
+      observation: Yup.string(),
+    });
+
+    if (!(await scheme.isValid(req.body))) {
+      return res.status(400).json({ error: 'Validation fails' });
+    }
+
+    await feedback.update(req.body);
 
     return res.json(feedback);
   }

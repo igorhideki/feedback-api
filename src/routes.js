@@ -24,5 +24,6 @@ routes.get('/reviews', ReviewController.index);
 
 routes.post('/reviews/:reviewId/feedbacks', FeedbackController.store);
 routes.get('/feedbacks', FeedbackController.index);
+routes.put('/feedbacks/:id', FeedbackController.update);
 
 export default routes;
