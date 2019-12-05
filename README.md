@@ -34,7 +34,7 @@ Abaixo estão as funcionalidades da API.
 
 - Gerenciamento de usuários
 - Atribuição de revisão de desempenho
-- Listagem de revisões que precisão de feedback
+- Listagem de revisões que precisam de feedback
 - Envio de feedback
 
 ## Links
